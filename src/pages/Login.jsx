@@ -14,15 +14,16 @@ export default function Login() {
         setLoading(true)
         setErrorMSG('')
 
-        const { error } = await supabase.auth.signInWithPassword({
+        const { error, data } = await supabase.auth.signInWithPassword({
             email,
             password,
         })
 
         if (error) {
-            setErrorMSG('Giriş başarısız. Lütfen bilgilerinizi kontrol edin.')
-            console.error(error)
+            setErrorMSG(`Hata: ${error.message}`)
+            console.error("Giriş Hatası:", error.message, error.status)
         } else {
+            console.log("Giriş Başarılı:", data)
             navigate('/')
         }
 
