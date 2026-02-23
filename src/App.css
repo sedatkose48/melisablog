@@ -264,3 +264,86 @@
   font-size: 0.8rem;
   color: #adb5bd;
 }
+
+/* Modal Styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.85);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 2rem;
+  cursor: zoom-out;
+}
+
+.modal-content {
+  max-width: 90vw;
+  max-height: 90vh;
+  position: relative;
+  cursor: default;
+}
+
+.modal-content img,
+.modal-content video {
+  max-width: 100%;
+  max-height: 90vh;
+  object-fit: contain;
+  border-radius: 8px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.close-modal {
+  position: absolute;
+  top: -40px;
+  right: -40px;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 2rem;
+  cursor: pointer;
+  padding: 10px;
+}
+
+.close-modal:hover {
+  color: #ffc3a0;
+}
+
+.clickable-media {
+  cursor: zoom-in;
+}
+
+/* Delete Button */
+.delete-btn {
+  background-color: transparent;
+  color: #ef4444;
+  border: 1px solid #fecaca;
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  margin-top: 1rem;
+}
+
+.delete-btn:hover {
+  background-color: #fef2f2;
+}
+
+.delete-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.post-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
