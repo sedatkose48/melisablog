@@ -4,6 +4,8 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  position: relative;
+  z-index: 10;
 }
 
 /* Base Inputs and Utilities */
@@ -81,8 +83,66 @@ header {
   border-radius: 50%;
   border: 5px solid white;
   object-fit: cover;
-  margin-bottom: 20px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+/* Avatar Upload Styles */
+.avatar-container {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  margin: 0 auto 20px;
+  border-radius: 50%;
+}
+
+.clickable-avatar {
+  cursor: pointer;
+}
+
+.avatar-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.clickable-avatar:hover .avatar-overlay {
+  opacity: 1;
+}
+
+.profile-img.uploading {
+  opacity: 0.5;
+  filter: blur(2px);
+}
+
+.loader {
+  color: white;
+  font-size: 1.5rem;
+  letter-spacing: 2px;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 0.5;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0.5;
+  }
 }
 
 /* Çalışmalarım Bölümü */
@@ -200,72 +260,143 @@ footer {
   color: #0369a1;
 }
 
-/* Login Page Styles (Kept from old design, adapted slightly) */
-.login-container {
+/* Animated Login Page Styles (Stitch Theme Replica) */
+.st-login-wrapper {
   flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 2rem;
+  margin-top: 40px;
+  /* Leave room for avatar pop */
 }
 
-.login-card {
-  background: rgba(255, 255, 255, 0.9);
-  padding: 3rem;
-  border-radius: 20px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+.st-login-card {
+  position: relative;
+  background-color: #72c1e0;
+  /* Sky blue matching reference */
   width: 100%;
   max-width: 400px;
-  text-align: left;
+  border-radius: 24px;
+  padding: 80px 40px 40px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+  animation: st-fade-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  opacity: 0;
+  transform: translateY(30px);
 }
 
-.login-card h2 {
-  margin-bottom: 0.5rem;
-  font-size: 1.8rem;
-  color: #0369a1;
+.st-login-avatar {
+  position: absolute;
+  top: -60px;
+  left: 50%;
+  transform: translateX(-50%) scale(0);
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 6px solid white;
+  background-color: white;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  animation: st-pop-in 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.4s forwards;
 }
 
-.login-subtitle {
-  color: var(--text-muted);
-  font-size: 0.9rem;
-  margin-bottom: 2rem;
-}
-
-.form-group {
-  margin-bottom: 1.5rem;
-}
-
-.form-group label {
-  display: block;
-  margin-bottom: 0.5rem;
-  font-size: 0.9rem;
-  font-weight: 500;
-  color: var(--text-main);
-}
-
-.form-group input {
+.st-login-avatar img {
   width: 100%;
-  padding: 0.8rem 1rem;
-  border: 1px solid #7dd3fc;
-  border-radius: 8px;
+  height: 100%;
+  object-fit: cover;
+}
+
+.st-login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.st-input-wrap {
+  opacity: 0;
+  transform: translateX(-30px);
+}
+
+.st-input-wrap.delay-1 {
+  animation: st-slide-in-left 0.6s ease-out 0.8s forwards;
+}
+
+.st-input-wrap.delay-2 {
+  animation: st-slide-in-left 0.6s ease-out 1.0s forwards;
+}
+
+.st-input {
+  width: 100%;
+  padding: 15px 20px;
+  border: none;
+  border-radius: 12px;
   font-size: 1rem;
-  transition: border-color 0.2s ease;
-  background: white;
+  background-color: white;
+  color: #333;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 600;
+  transition: outline 0.2s;
 }
 
-.form-group input:focus {
-  outline: none;
-  border-color: #0284c7;
+.st-input:focus {
+  outline: 2px solid #0369a1;
 }
 
-.error-msg {
-  background-color: #fff1f0;
-  color: #d32f2f;
-  border: 1px solid #ffcdd2;
-  padding: 0.8rem;
+.st-go-btn {
+  margin-top: 10px;
+  background-color: white;
+  color: #72c1e0;
+  border: none;
+  border-radius: 12px;
+  padding: 15px;
+  font-size: 1.2rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: transform 0.2s, background-color 0.2s;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.st-go-btn.delay-3 {
+  animation: st-fade-up 0.5s ease-out 1.3s forwards;
+}
+
+.st-go-btn:hover {
+  transform: translateY(-2px);
+  background-color: #f8fafc;
+}
+
+.st-error-msg {
+  background-color: #fee2e2;
+  color: #ef4444;
+  padding: 10px;
   border-radius: 8px;
-  margin-bottom: 1.5rem;
   font-size: 0.9rem;
+  text-align: center;
+  animation: st-fade-up 0.3s forwards;
+}
+
+/* Base Keyframes */
+@keyframes st-fade-up {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes st-pop-in {
+  to {
+    transform: translateX(-50%) scale(1);
+  }
+}
+
+@keyframes st-slide-in-left {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 /* Primary btn overrides for login page forms */
@@ -437,5 +568,45 @@ footer {
 
   .container {
     margin: 20px auto;
+  }
+
+  /* Background fix for mobile (prevents stars from cutting off or scrolling weirdly) */
+  .app-container {
+    min-height: -webkit-fill-available;
+    overflow-x: hidden;
+  }
+
+  body,
+  html {
+    overflow-x: hidden;
+  }
+
+  /* Animated Login Mobile Adjustments */
+  .st-login-wrapper {
+    padding: 1rem;
+    margin-top: 50px;
+    align-items: flex-start;
+    /* Move it up slightly on mobile so keyboard doesn't cover */
+  }
+
+  .st-login-card {
+    padding: 60px 20px 30px;
+    /* Reduce side paddings */
+    border-radius: 20px;
+  }
+
+  .st-login-avatar {
+    width: 100px;
+    height: 100px;
+    top: -50px;
+    border-width: 4px;
+  }
+
+  .st-input {
+    padding: 12px 15px;
+  }
+
+  .st-go-btn {
+    padding: 12px;
   }
 }

@@ -30,41 +30,54 @@ export default function Login() {
         setLoading(false)
     }
 
+    // Profil resmini güvenli bir şekilde LocalStorage'dan veya varsayılan public dosyasından al
+    const getAvatarSrc = () => {
+        const stored = localStorage.getItem('site_avatar_data')
+        if (stored) {
+            try { return JSON.parse(stored).url } catch (e) { /* ignore */ }
+        }
+        const oldStored = localStorage.getItem('site_avatar')
+        if (oldStored) return oldStored
+        return '/profile-pic.jpg'
+    }
+
     return (
-        <div className="login-container">
-            <div className="login-card">
-                <h2>Yönetici Girişi</h2>
-                <p className="login-subtitle">Sadece Melisa için yetkili alandır.</p>
+        <div className="st-login-wrapper">
+            <div className="st-login-card">
 
-                <form onSubmit={handleLogin} className="login-form">
-                    {errorMSG && <div className="error-msg">{errorMSG}</div>}
+                <div className="st-login-avatar">
+                    <img src={getAvatarSrc()} alt="Admin Avatar" />
+                </div>
 
-                    <div className="form-group">
-                        <label htmlFor="email">E-posta</label>
+                <form onSubmit={handleLogin} className="st-login-form">
+                    {errorMSG && <div className="st-error-msg">{errorMSG}</div>}
+
+                    <div className="st-input-wrap delay-1">
                         <input
                             id="email"
                             type="email"
+                            className="st-input"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
-                            placeholder="E-posta adresiniz"
+                            placeholder="E-posta"
                             required
                         />
                     </div>
 
-                    <div className="form-group">
-                        <label htmlFor="password">Şifre</label>
+                    <div className="st-input-wrap delay-2">
                         <input
                             id="password"
                             type="password"
+                            className="st-input"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
-                            placeholder="Şifreniz"
+                            placeholder="Şifre"
                             required
                         />
                     </div>
 
-                    <button type="submit" className="btn primary-btn full-width" disabled={loading}>
-                        {loading ? 'Giriş Yapılıyor...' : 'Giriş Yap'}
+                    <button type="submit" className="st-go-btn delay-3" disabled={loading}>
+                        {loading ? '...' : 'GO!'}
                     </button>
                 </form>
             </div>
