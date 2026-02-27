@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:melisablog-beta.vercel.app)",
+      "Bash(npx vercel:*)",
+      "Bash(npm run build:*)",
+      "WebFetch(domain:melisablog-86648z143-sedats-projects-eaa648f7.vercel.app)",
+      "Bash(ls:*)",
+      "Bash(dir:*)",
+      "Bash(git -C \"C:/Users/User/Desktop/melısa blog\" log --oneline -10)",
+      "Bash(git -C \"C:/Users/User/Desktop/melısa blog\" diff HEAD~2..HEAD -- src/components/BackgroundFx.jsx src/index.css src/App.css src/pages/Login.jsx)",
+      "Bash(git -C \"C:/Users/User/Desktop/melısa blog\" status)",
+      "Bash(git -C \"C:/Users/User/Desktop/melısa blog\" diff)",
+      "Bash(git -C \"C:/Users/User/Desktop/melısa blog\" log --oneline -5)",
+      "Bash(git -C \"C:/Users/User/Desktop/melısa blog\" add src/App.css src/components/BackgroundFx.jsx src/index.css src/pages/Login.jsx public/login_animation.mp4)",
+      "Bash(git -C:*)"
+    ]
+  }
+}
