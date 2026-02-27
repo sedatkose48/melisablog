@@ -3,8 +3,9 @@
 Bu dosyada projeye eklenen son özellikler, düzeltmeler ve sistemsel güncellemeler listelenmektedir.
 
 ## 🛠 Sistem ve Altyapı Düzeltmeleri
-1. **GitHub Depo Değişikliği:** 
-   - Hatalı (403 Forbidden) yetkilendirme sorunları nedeniyle GitHub deposu `sedatkose48/mel-saablog` adlı kilitlenmeyen ana hesaba taşındı.
+1. **GitHub Depo Değişikliği & Vercel Bağlantı Düzeltmesi:** 
+   - Hatalı (403 Forbidden) yetkilendirme sorunları nedeniyle GitHub deposu önce `sedatkose48/mel-saablog` adlı kilitlenmeyen ana hesaba taşındı.
+   - **Kritik Düzeltme (27 Şubat 2026):** Yerel kodun `mel-saablog` reposuna gönderildiği, ancak Vercel'in `melisablog` reposunu takip ettiği keşfedildi. Bu yüzden hiçbir değişiklik canlı siteye yansımıyordu. Git remote URL'si `https://github.com/sedatkose48/melisablog.git` olarak güncellendi ve tüm son değişiklikler doğru repoya force-push yapıldı. Artık `git push` doğrudan Vercel'in izlediği `sedatkose48/melisablog` reposuna gidiyor.
 2. **Vercel 404 Hatası Çözümü:** 
    - Proje ana dizinine `vercel.json` dosyası eklendi. (React Router'ın Vercel ortamında sayfalar arası geçişte veya sayfayı yenilerken çıkardığı 404 hatası sonsuza dek çözüldü).
 3. **Supabase Veritabanı Yenilemesi:** 
