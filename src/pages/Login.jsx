@@ -43,6 +43,14 @@ export default function Login() {
 
     return (
         <div className="st-login-wrapper">
+            <video
+                className="st-login-bg-video"
+                src="/login_animation.mp4"
+                autoPlay
+                muted
+                loop
+                playsInline
+            />
             <div className="st-login-card">
 
                 <div className="st-login-avatar">

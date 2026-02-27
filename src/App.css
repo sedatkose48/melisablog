@@ -268,7 +268,20 @@ footer {
   justify-content: center;
   padding: 2rem;
   margin-top: 40px;
-  /* Leave room for avatar pop */
+  position: relative;
+  overflow: hidden;
+}
+
+.st-login-bg-video {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  z-index: -1;
+  opacity: 0.3;
+  pointer-events: none;
 }
 
 .st-login-card {
@@ -587,6 +600,11 @@ footer {
     align-items: center;
     margin-top: 30px;
     width: 100%;
+    overflow: hidden;
+  }
+
+  .st-login-bg-video {
+    opacity: 0.2;
   }
 
   .st-login-card {
