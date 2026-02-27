@@ -584,29 +584,38 @@ footer {
   /* Animated Login Mobile Adjustments */
   .st-login-wrapper {
     padding: 1rem;
-    margin-top: 50px;
-    align-items: flex-start;
-    /* Move it up slightly on mobile so keyboard doesn't cover */
+    align-items: center;
+    /* Center vertically better on mobile */
+    margin-top: 30px;
+    width: 100%;
+    overflow: hidden;
+    /* Prevent any horizontal layout breaking */
   }
 
   .st-login-card {
     padding: 60px 20px 30px;
-    /* Reduce side paddings */
     border-radius: 20px;
+    width: 100%;
+    margin: 0 auto;
+    /* Prevent the slide-in animation from expanding the viewport */
+    overflow-x: hidden;
   }
 
   .st-login-avatar {
-    width: 100px;
-    height: 100px;
-    top: -50px;
+    width: 90px;
+    height: 90px;
+    top: -45px;
     border-width: 4px;
+    z-index: 5;
   }
 
   .st-input {
     padding: 12px 15px;
+    font-size: 0.95rem;
   }
 
   .st-go-btn {
     padding: 12px;
+    font-size: 1.1rem;
   }
 }
