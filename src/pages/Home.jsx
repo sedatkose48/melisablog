@@ -189,11 +189,22 @@ export default function Home() {
                         <div key={post.id} className="work-card">
 
                             <div
-                                className={`work-media ${post.media_type === 'image' ? 'clickable-media' : ''}`}
-                                onClick={() => post.media_type === 'image' && setSelectedMedia(post.media_url)}
+                                className={`work-media ${post.media_type === 'image' ? 'clickable-media' : ''} ${post.media_type === 'pdf' ? 'pdf-media clickable-media' : ''}`}
+                                onClick={() => {
+                                    if (post.media_type === 'image') setSelectedMedia(post.media_url)
+                                    if (post.media_type === 'pdf') window.open(post.media_url, '_blank')
+                                }}
                             >
                                 {post.media_type === 'video' ? (
                                     <video src={post.media_url} controls playsInline className="work-img" />
+                                ) : post.media_type === 'pdf' ? (
+                                    <div className="pdf-preview">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" className="pdf-icon">
+                                            <rect width="64" height="64" rx="10" fill="#ff5252" />
+                                            <text x="50%" y="58%" dominantBaseline="middle" textAnchor="middle" fontSize="22" fontWeight="bold" fill="white" fontFamily="Arial">PDF</text>
+                                        </svg>
+                                        <span className="pdf-label">PDF dosyasını açmak için tıkla</span>
+                                    </div>
                                 ) : (
                                     <img src={post.media_url} alt={post.title} loading="lazy" className="work-img" />
                                 )}

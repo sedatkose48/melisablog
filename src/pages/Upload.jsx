@@ -48,7 +48,7 @@ export default function Upload({ user }) {
             .getPublicUrl(filePath)
 
         // 3. Veritabanına (posts tablosuna) kayıt ekleme
-        const mediaType = file.type.startsWith('video/') ? 'video' : 'image'
+        const mediaType = file.type === 'application/pdf' ? 'pdf' : file.type.startsWith('video/') ? 'video' : 'image'
 
         const { error: dbError } = await supabase
             .from('posts')
@@ -100,10 +100,10 @@ export default function Upload({ user }) {
                     </div>
 
                     <div className="form-group file-group">
-                        <label>Dosya Seç (Fotoğraf veya Video)</label>
+                        <label>Dosya Seç (Fotoğraf, Video veya PDF)</label>
                         <input
                             type="file"
-                            accept="image/*,video/*"
+                            accept="image/*,video/*,application/pdf"
                             onChange={(e) => setFile(e.target.files[0])}
                             required
                         />
