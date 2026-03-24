@@ -22,3 +22,7 @@ Bu dosyada projeye eklenen son özellikler, düzeltmeler ve sistemsel güncellem
    - Ziyaretçilerin göremediği, **sadece giriş yapmış (admin)** kişinin görebileceği bir Çöp Kutusu (Sil) butonu eklendi.
    - Kazayla silinmeye karşı "Emin misiniz?" şekline Alert onayı eklendi.
    - Silinen gönderiler sadece arayüzden ve veritabanından (`posts` table) değil, aynı zamanda **Supabase Storage** (dosya depolama) alanından da temizlenecek şekilde bağlandı. Böylece Vercel veya Supabase gereksiz depolama kotası harcamayacak.
+
+3. **🔗 Dış Bağlantı (Link) Ekleme Özelliği (Mart 2026):**
+   - **Upload Sayfası:** Artık "Dosya Yükle" veya "Bağlantı Ekle" seçenekleri sunularak, dosyalar yerine dış URL'lerin (Canva, web siteleri vb.) çalışmalara eklenmesi sağlandı (`Upload.jsx`).
+   - **Ana Sayfa Gösterimi:** Eklenen bu URL'ler ana sayfada (`Home.jsx`) özel bir kart arayüzü (`link-preview`) ile gösterilip tıklandığında yeni sekmede açılacak şekilde programlandı (`App.css`).
