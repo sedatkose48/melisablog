@@ -189,10 +189,10 @@ export default function Home() {
                         <div key={post.id} className="work-card">
 
                             <div
-                                className={`work-media ${post.media_type === 'image' ? 'clickable-media' : ''} ${post.media_type === 'pdf' ? 'pdf-media clickable-media' : ''}`}
+                                className={`work-media ${post.media_type === 'image' ? 'clickable-media' : ''} ${post.media_type === 'pdf' ? 'pdf-media clickable-media' : ''} ${post.media_type === 'link' ? 'link-media clickable-media' : ''}`}
                                 onClick={() => {
                                     if (post.media_type === 'image') setSelectedMedia(post.media_url)
-                                    if (post.media_type === 'pdf') window.open(post.media_url, '_blank')
+                                    if (post.media_type === 'pdf' || post.media_type === 'link') window.open(post.media_url, '_blank')
                                 }}
                             >
                                 {post.media_type === 'video' ? (
@@ -204,6 +204,14 @@ export default function Home() {
                                             <text x="50%" y="58%" dominantBaseline="middle" textAnchor="middle" fontSize="22" fontWeight="bold" fill="white" fontFamily="Arial">PDF</text>
                                         </svg>
                                         <span className="pdf-label">PDF dosyasını açmak için tıkla</span>
+                                    </div>
+                                ) : post.media_type === 'link' ? (
+                                    <div className="link-preview">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="link-icon">
+                                            <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+                                            <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+                                        </svg>
+                                        <span className="link-label">Bağlantıya gitmek için tıkla</span>
                                     </div>
                                 ) : (
                                     <img src={post.media_url} alt={post.title} loading="lazy" className="work-img" />
