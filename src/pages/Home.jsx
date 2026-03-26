@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from 'react'
 import { supabase } from '../lib/supabase'
-import { Trash2, X, Camera } from 'lucide-react'
+import { Trash2, X, Camera, Edit2 } from 'lucide-react'
 
 export default function Home() {
     const [posts, setPosts] = useState([])
@@ -8,6 +8,11 @@ export default function Home() {
     const [selectedMedia, setSelectedMedia] = useState(null)
     const [isLoggedIn, setIsLoggedIn] = useState(false)
     const [deletingId, setDeletingId] = useState(null)
+
+    // Edit states
+    const [editingId, setEditingId] = useState(null)
+    const [editTitle, setEditTitle] = useState('')
+    const [editDescription, setEditDescription] = useState('')
 
     // Avatar upload states
     const [avatarUrl, setAvatarUrl] = useState(() => {
@@ -44,6 +49,33 @@ export default function Home() {
             setPosts(data)
         }
         setLoading(false)
+    }
+
+    const handleEdit = (post) => {
+        setEditingId(post.id)
+        setEditTitle(post.title)
+        setEditDescription(post.description || '')
+    }
+
+    const handleSaveEdit = async (postId) => {
+        try {
+            const { error } = await supabase
+                .from('posts')
+                .update({ title: editTitle, description: editDescription })
+                .eq('id', postId)
+
+            if (error) throw error
+
+            setPosts(posts.map(p => p.id === postId ? { ...p, title: editTitle, description: editDescription } : p))
+            setEditingId(null)
+        } catch (error) {
+            console.error(error)
+            alert("Güncellenirken bir hata oluştu: " + error.message)
+        }
+    }
+
+    const handleCancelEdit = () => {
+        setEditingId(null)
     }
 
     const handleDelete = async (postId, mediaUrl) => {
@@ -219,23 +251,61 @@ export default function Home() {
                             </div>
 
                             <div className="work-info">
-                                <span className="work-date">
-                                    {formatDate(post.created_at)}
-                                </span>
-                                <h3>{post.title}</h3>
-                                {post.description && <p>{post.description}</p>}
+                                {editingId === post.id ? (
+                                    <div className="edit-form">
+                                        <input
+                                            type="text"
+                                            value={editTitle}
+                                            onChange={(e) => setEditTitle(e.target.value)}
+                                            className="edit-input"
+                                            placeholder="Başlık"
+                                            autoFocus
+                                        />
+                                        <textarea
+                                            value={editDescription}
+                                            onChange={(e) => setEditDescription(e.target.value)}
+                                            className="edit-textarea"
+                                            placeholder="Açıklama"
+                                            rows={3}
+                                        />
+                                        <div className="edit-actions">
+                                            <button onClick={() => handleSaveEdit(post.id)} className="save-btn">Kaydet</button>
+                                            <button onClick={handleCancelEdit} className="cancel-btn">İptal</button>
+                                        </div>
+                                    </div>
+                                ) : (
+                                    <>
+                                        <span className="work-date">
+                                            {formatDate(post.created_at)}
+                                        </span>
+                                        <h3>{post.title}</h3>
+                                        {post.description && <p>{post.description}</p>}
+                                    </>
+                                )}
 
                                 <div className="post-footer">
                                     {isLoggedIn && (
-                                        <button
-                                            onClick={() => handleDelete(post.id, post.media_url)}
-                                            className="delete-btn"
-                                            disabled={deletingId === post.id}
-                                            title="Bu gönderiyi sil"
-                                        >
-                                            <Trash2 size={16} />
-                                            {deletingId === post.id ? '...' : 'Sil'}
-                                        </button>
+                                        <>
+                                            {editingId !== post.id && (
+                                                <button
+                                                    onClick={() => handleEdit(post)}
+                                                    className="edit-btn"
+                                                    title="Bu gönderiyi düzenle"
+                                                >
+                                                    <Edit2 size={16} />
+                                                    Düzenle
+                                                </button>
+                                            )}
+                                            <button
+                                                onClick={() => handleDelete(post.id, post.media_url)}
+                                                className="delete-btn"
+                                                disabled={deletingId === post.id}
+                                                title="Bu gönderiyi sil"
+                                            >
+                                                <Trash2 size={16} />
+                                                {deletingId === post.id ? '...' : 'Sil'}
+                                            </button>
+                                        </>
                                     )}
                                 </div>
                             </div>
